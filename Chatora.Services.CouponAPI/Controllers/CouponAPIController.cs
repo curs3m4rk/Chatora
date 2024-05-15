@@ -1,7 +1,7 @@
-﻿using Chatora.Services.CouponAPI.Data;
+﻿using AutoMapper;
+using Chatora.Services.CouponAPI.Data;
 using Chatora.Services.CouponAPI.Models;
 using Chatora.Services.CouponAPI.Models.Dto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chatora.Services.CouponAPI.Controllers
@@ -11,11 +11,13 @@ namespace Chatora.Services.CouponAPI.Controllers
     public class CouponAPIController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
+        private IMapper _mapper;
         private ResponseDto _response;
 
-        public CouponAPIController(ApplicationDbContext db)
+        public CouponAPIController(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;
+            _mapper = mapper;
             _response = new ResponseDto();
         }
 
@@ -25,7 +27,7 @@ namespace Chatora.Services.CouponAPI.Controllers
             try
             {
                 IEnumerable<Coupon> couponList = _db.Coupons.ToList();
-                _response.Result = couponList;
+                _response.Result = _mapper.Map<IEnumerable<CouponDto>>(couponList);
             }
             catch (Exception ex)
             {
@@ -42,7 +44,7 @@ namespace Chatora.Services.CouponAPI.Controllers
             try
             {
                 Coupon coupon = _db.Coupons.First(x => x.CouponId == id);
-                _response.Result = coupon;
+                _response.Result = _mapper.Map<CouponDto>(coupon);
             }
             catch (Exception ex)
             {
