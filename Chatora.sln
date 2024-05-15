@@ -3,9 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{DC5D4415-F0B8-4111-BF6A-4472EC7DB94F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{2BA75E43-1E1E-4CEC-AF63-D4418A2BD088}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{66A925FB-7CD8-4CB7-B5B0-1126AAAA74A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{39913C7E-9A78-466F-80F4-7FDDF331B6FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.Services.CouponAPI", "Chatora.Services.CouponAPI\Chatora.Services.CouponAPI.csproj", "{1017AA04-4A22-4EDA-9B9C-B1D0BCBED4B9}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1017AA04-4A22-4EDA-9B9C-B1D0BCBED4B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1017AA04-4A22-4EDA-9B9C-B1D0BCBED4B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1017AA04-4A22-4EDA-9B9C-B1D0BCBED4B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1017AA04-4A22-4EDA-9B9C-B1D0BCBED4B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1017AA04-4A22-4EDA-9B9C-B1D0BCBED4B9} = {39913C7E-9A78-466F-80F4-7FDDF331B6FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73D8C585-96C7-432A-B908-FA7A3F7F81EF}
