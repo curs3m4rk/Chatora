@@ -28,11 +28,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-ApplyMigraion();
+ApplyMigration();
 app.Run();
 
 // To run update-database by default if there are any pending migrations on app launch
-void ApplyMigraion()
+void ApplyMigration()
 {
     using (var scope = app.Services.CreateScope())
     {
