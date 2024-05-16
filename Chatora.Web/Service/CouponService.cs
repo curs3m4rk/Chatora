@@ -27,7 +27,7 @@ public class CouponService : ICouponService
         return await _baseService.SendAsync(new RequestDto()
         {
             ApiType = SD.ApiType.GET,
-            Url = SD.CouponAPIBase + "/getByCode/" + couponCode
+            Url = SD.CouponAPIBase + "/api/coupon/getByCode/" + couponCode
         });
     }
 
