@@ -18,7 +18,7 @@ namespace Chatora.Services.AuthAPI.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegistrationRequestDto model)
+        public async Task<IActionResult> Register([FromBody] RegistrationRequestDto model)
         {
             var errorMessage = await _authService.Register(model);
 
@@ -32,9 +32,16 @@ namespace Chatora.Services.AuthAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto model)
         {
-            return Ok();
+            var loginResponse = await _authService.Login(model);
+            if(loginResponse.User == null)
+            {
+                _response.IsSuccess = false;
+                _response.Message = "UserName or Password is Incorrect";
+                return BadRequest(_response);
+            }
+            return Ok(_response);
         }
     }
 }
