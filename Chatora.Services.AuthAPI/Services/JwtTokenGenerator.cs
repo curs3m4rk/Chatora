@@ -1,5 +1,6 @@
 ﻿using Chatora.Services.AuthAPI.Models;
 using Chatora.Services.AuthAPI.Services.IService;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -10,9 +11,9 @@ namespace Chatora.Services.AuthAPI.Services
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly JwtOptions _jwtOptions;
-        public JwtTokenGenerator(JwtOptions jwtOptions)
+        public JwtTokenGenerator(IOptions<JwtOptions> jwtOptions)
         {
-            _jwtOptions = jwtOptions;
+            _jwtOptions = jwtOptions.Value;
         }
         public string GenerateToken(ApplicationUser applicationUser)
         {

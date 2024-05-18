@@ -41,6 +41,7 @@ namespace Chatora.Services.AuthAPI.Controllers
                 _response.Message = "UserName or Password is Incorrect";
                 return BadRequest(_response);
             }
+            _response.Result = loginResponse;
             return Ok(_response);
         }
     }

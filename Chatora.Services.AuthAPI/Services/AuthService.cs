@@ -9,13 +9,17 @@ namespace Chatora.Services.AuthAPI.Services
     public class AuthService : IAuthService
     {
         private readonly ApplicationDbContext _db;
+        private readonly IJwtTokenGenerator _jwtTokenGenerator;
+
         // below 2 dependecy injection are used to insert data automatically in Identity Tables
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthService(ApplicationDbContext db, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AuthService(ApplicationDbContext db, IJwtTokenGenerator jwtTokenGenerator,
+            UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _db = db;
+            _jwtTokenGenerator = jwtTokenGenerator;
             _userManager = userManager;
             _roleManager = roleManager;
         }
@@ -32,6 +36,7 @@ namespace Chatora.Services.AuthAPI.Services
             }
 
             // if User is found, Generate JWT Token
+            var token = _jwtTokenGenerator.GenerateToken(user);
 
             UserDto userDto = new()
             {
@@ -44,7 +49,7 @@ namespace Chatora.Services.AuthAPI.Services
             LoginResponseDto loginResponseDto = new LoginResponseDto()
             {
                 User = userDto,
-                Token = ""
+                Token = token
             };
 
             return loginResponseDto;
