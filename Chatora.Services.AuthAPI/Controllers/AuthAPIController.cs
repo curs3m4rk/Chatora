@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Chatora.Services.AuthAPI.Models.Dto;
+using Chatora.Services.AuthAPI.Services.IService;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Chatora.Services.AuthAPI.Controllers
 {
@@ -6,10 +8,27 @@ namespace Chatora.Services.AuthAPI.Controllers
     [ApiController]
     public class AuthAPIController : Controller
     {
-        [HttpPost("register")]
-        public async Task<IActionResult> Register()
+        private ResponseDto _response;
+        private IAuthService _authService;
+
+        public AuthAPIController(IAuthService authService)
         {
-            return Ok();
+            _response = new ResponseDto();
+            _authService = authService;
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegistrationRequestDto model)
+        {
+            var errorMessage = await _authService.Register(model);
+
+            if(!string.IsNullOrEmpty(errorMessage))
+            {
+                _response.IsSuccess = false;
+                _response.Message = errorMessage;
+                return BadRequest(_response);
+            }
+            return Ok(_response);
         }
 
         [HttpPost("login")]

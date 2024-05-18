@@ -25,7 +25,7 @@ namespace Chatora.Services.AuthAPI.Services
             throw new NotImplementedException();
         }
 
-        public async Task<UserDto> Register(RegistrationRequestDto registrationRequestDto)
+        public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
         {
             ApplicationUser user = new()
             {
@@ -52,7 +52,11 @@ namespace Chatora.Services.AuthAPI.Services
                         PhoneNumber = userToReturn.PhoneNumber
                     };
 
-                    return userDto;
+                    return "";
+                }
+                else
+                {
+                    return result.Errors.FirstOrDefault().Description;
                 }
             } 
             catch (Exception ex)
@@ -60,7 +64,7 @@ namespace Chatora.Services.AuthAPI.Services
 
             }
 
-            return new UserDto();
+            return "Error Encountered";
         }
     }
 }
