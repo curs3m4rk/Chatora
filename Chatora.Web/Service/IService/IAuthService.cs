@@ -1,5 +1,4 @@
 ﻿using Chatora.Web.Models;
-using Chatora.Web.Models.Dto;
 
 namespace Chatora.Web.Service.IService
 {

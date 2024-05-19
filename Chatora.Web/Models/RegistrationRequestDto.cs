@@ -1,4 +1,4 @@
-﻿namespace Chatora.Web.Models.Dto
+﻿namespace Chatora.Web.Models
 {
     public class RegistrationRequestDto
     {

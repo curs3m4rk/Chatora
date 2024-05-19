@@ -1,4 +1,4 @@
-﻿using Chatora.Web.Models.Dto;
+﻿using Chatora.Web.Models;
 using Chatora.Web.Service.IService;
 using Microsoft.AspNetCore.Mvc;
 
