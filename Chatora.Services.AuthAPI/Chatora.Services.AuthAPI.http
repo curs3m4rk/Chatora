@@ -1,0 +1,6 @@
+@Chatora.Services.AuthAPI_HostAddress = http://localhost:5041
+
+GET {{Chatora.Services.AuthAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
