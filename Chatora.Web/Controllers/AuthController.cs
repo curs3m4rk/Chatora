@@ -95,9 +95,11 @@ namespace Chatora.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            return View();
+            await HttpContext.SignOutAsync();
+            _tokenProvider.ClearToken();
+            return RedirectToAction("Index", "Home");
         }
 
         // basic and default steps to signin user using built-in .net identity
