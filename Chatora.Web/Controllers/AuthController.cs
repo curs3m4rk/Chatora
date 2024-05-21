@@ -44,7 +44,7 @@ namespace Chatora.Web.Controllers
             }
             else
             {
-                ModelState.AddModelError("Custom Error", responseDto.Message);
+                TempData["error"] = responseDto.Message;
                 return View(obj);
             }
 
@@ -81,6 +81,10 @@ namespace Chatora.Web.Controllers
                     TempData["success"] = "Registration Successfull";
                     return RedirectToAction(nameof(Login));
                 }
+            }
+            else
+            {
+                TempData["error"] = result.Message;
             }
 
 
