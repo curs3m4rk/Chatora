@@ -2,12 +2,14 @@
 using Chatora.Services.CouponAPI.Data;
 using Chatora.Services.CouponAPI.Models;
 using Chatora.Services.CouponAPI.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chatora.Services.CouponAPI.Controllers
 {
     [Route("api/coupon")]
     [ApiController]
+    [Authorize]
     public class CouponAPIController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
@@ -72,6 +74,7 @@ namespace Chatora.Services.CouponAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Post([FromBody] CouponDto couponDto)
         {
             try
@@ -91,6 +94,7 @@ namespace Chatora.Services.CouponAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Update([FromBody] CouponDto couponDto)
         {
             try
@@ -111,6 +115,7 @@ namespace Chatora.Services.CouponAPI.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Delete(int id)
         {
             try
