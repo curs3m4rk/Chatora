@@ -13,9 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{39
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.CouponAPI", "Chatora.Services.CouponAPI\Chatora.Services.CouponAPI.csproj", "{1017AA04-4A22-4EDA-9B9C-B1D0BCBED4B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.Web", "Chatora.Web\Chatora.Web.csproj", "{AF82A878-002A-44FC-B18B-A2C872AA3CCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Web", "Chatora.Web\Chatora.Web.csproj", "{AF82A878-002A-44FC-B18B-A2C872AA3CCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.Services.AuthAPI", "Chatora.Services.AuthAPI\Chatora.Services.AuthAPI.csproj", "{94858408-6838-43BC-9A82-D178DA7880D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.AuthAPI", "Chatora.Services.AuthAPI\Chatora.Services.AuthAPI.csproj", "{94858408-6838-43BC-9A82-D178DA7880D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.Services.ProductAPI", "Chatora.Services.ProductAPI\Chatora.Services.ProductAPI.csproj", "{9B717608-6359-46FC-9D33-127F81124567}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{94858408-6838-43BC-9A82-D178DA7880D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94858408-6838-43BC-9A82-D178DA7880D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94858408-6838-43BC-9A82-D178DA7880D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B717608-6359-46FC-9D33-127F81124567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B717608-6359-46FC-9D33-127F81124567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B717608-6359-46FC-9D33-127F81124567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B717608-6359-46FC-9D33-127F81124567}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{1017AA04-4A22-4EDA-9B9C-B1D0BCBED4B9} = {39913C7E-9A78-466F-80F4-7FDDF331B6FC}
 		{AF82A878-002A-44FC-B18B-A2C872AA3CCD} = {DC5D4415-F0B8-4111-BF6A-4472EC7DB94F}
 		{94858408-6838-43BC-9A82-D178DA7880D7} = {39913C7E-9A78-466F-80F4-7FDDF331B6FC}
+		{9B717608-6359-46FC-9D33-127F81124567} = {39913C7E-9A78-466F-80F4-7FDDF331B6FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73D8C585-96C7-432A-B908-FA7A3F7F81EF}
