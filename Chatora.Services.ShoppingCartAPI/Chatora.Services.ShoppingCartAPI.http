@@ -1,0 +1,6 @@
+@Chatora.Services.ShoppingCartAPI_HostAddress = http://localhost:5049
+
+GET {{Chatora.Services.ShoppingCartAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
