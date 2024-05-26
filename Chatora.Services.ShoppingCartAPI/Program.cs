@@ -2,6 +2,8 @@ using AutoMapper;
 using Chatora.Services.ShoppingCartAPI;
 using Chatora.Services.ShoppingCartAPI.Data;
 using Chatora.Services.ShoppingCartAPI.Extensions;
+using Chatora.Services.ShoppingCartAPI.Service;
+using Chatora.Services.ShoppingCartAPI.Service.IService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -16,8 +18,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<IProductService, ProductService>();
 // Add services to the container.
-
+builder.Services.AddHttpClient("Product", x => x.BaseAddress =
+    new Uri(builder.Configuration["ServiceUrls:ProductAPI"]));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

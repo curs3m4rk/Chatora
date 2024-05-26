@@ -2,6 +2,7 @@ using AutoMapper;
 using Chatora.Services.ShoppingCartAPI.Data;
 using Chatora.Services.ShoppingCartAPI.Models;
 using Chatora.Services.ShoppingCartAPI.Models.Dto;
+using Chatora.Services.ShoppingCartAPI.Service.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,12 +14,14 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
     {
         private ApplicationDbContext _db;
         private IMapper _mapper;
+        private readonly IProductService _productService;
         private ResponseDto _response;
 
-        public CartAPIController(ApplicationDbContext db, IMapper mapper)
+        public CartAPIController(ApplicationDbContext db, IMapper mapper, IProductService productService)
         {
             _db = db;
             _mapper = mapper;
+            _productService = productService;
             _response = new ResponseDto();
         }
 
@@ -34,8 +37,11 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
                 cart.CartDetails = _mapper.Map<IEnumerable<CartDetailsDto>>(_db.CartDetails
                     .Where(x => x.CartHeaderId == cart.CartHeader.CartHeaderId));
 
+                IEnumerable<ProductDto> productDtos = await _productService.GetProducts();
+
                 foreach (var item in cart.CartDetails)
                 {
+                    item.Product = productDtos.FirstOrDefault(x => x.ProductId == item.ProductId);
                     cart.CartHeader.CartTotal += (item.Count * item.Product.Price);
                 }
 
