@@ -28,7 +28,7 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
             try
             {
                 var cartHeaderFromDb =
-                    await _db.CartHeaders.FirstOrDefaultAsync(x => x.UserId == cartDto.CartHeader.UserId);
+                    await _db.CartHeaders.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == cartDto.CartHeader.UserId);
                 if (cartHeaderFromDb == null)
                 {
                     // create header and details
@@ -44,24 +44,36 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
                 {
                     // if header is not null
                     // check if details has same product
-                    var cartDetailsFromDb = await _db.CartDetails.FirstOrDefaultAsync(
+                    var cartDetailsFromDb = await _db.CartDetails.AsNoTracking().FirstOrDefaultAsync(
                         x => x.ProductId == cartDto.CartDetails.First().ProductId &&
                              x.CartHeaderId == cartHeaderFromDb.CartHeaderId);
                     if (cartDetailsFromDb == null)
                     {
                         // create cart details
+                        cartDto.CartDetails.First().CartHeaderId = cartHeaderFromDb.CartHeaderId;
+                        _db.CartDetails.Add(_mapper.Map<CartDetails>(cartDto.CartDetails.First()));
+                        await _db.SaveChangesAsync();
                     }
                     else
                     {
                         // update count in cart details
+                        cartDto.CartDetails.First().Count += cartDetailsFromDb.Count;
+                        cartDto.CartDetails.First().CartHeaderId = cartDetailsFromDb.CartHeaderId;
+                        cartDto.CartDetails.First().CartDetailsId = cartDetailsFromDb.CartDetailsId;
+                        _db.CartDetails.Update(_mapper.Map<CartDetails>(cartDto.CartDetails.First()));
+                        await _db.SaveChangesAsync();
                     }
                 }
+
+                _response.Result = cartDto;
             }
             catch (Exception ex)
             {
                 _response.Message = ex.Message;
                 _response.IsSuccess = false;
             }
+
+            return _response;
         }
     }
 }
