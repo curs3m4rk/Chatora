@@ -21,6 +21,35 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
             _mapper = mapper;
             _response = new ResponseDto();
         }
+
+        [HttpGet("GetCart/{userId}")]
+        public async Task<ResponseDto> GetCart(string userId)
+        {
+            try
+            {
+                CartDto cart = new()
+                {
+                    CartHeader = _mapper.Map<CartHeaderDto>(_db.CartHeaders.First(x => x.UserId == userId))
+                };
+                cart.CartDetails = _mapper.Map<IEnumerable<CartDetailsDto>>(_db.CartDetails
+                    .Where(x => x.CartHeaderId == cart.CartHeader.CartHeaderId));
+
+                foreach (var item in cart.CartDetails)
+                {
+                    cart.CartHeader.CartTotal += (item.Count * item.Product.Price);
+                }
+
+                _response.Result = cart;
+
+            }
+            catch (Exception ex)
+            {
+                _response.Message = ex.Message;
+                _response.IsSuccess = false;
+            }
+
+            return _response;
+        }
         
         [HttpPost("CartUpsert")]
         public async Task<ResponseDto> CartUpsert(CartDto cartDto)
