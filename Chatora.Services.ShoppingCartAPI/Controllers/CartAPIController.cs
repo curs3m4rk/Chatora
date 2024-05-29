@@ -56,6 +56,45 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
 
             return _response;
         }
+
+        [HttpPost("ApplyCoupon")]
+        public async Task<Object> ApplyCoupon(CartDto cartDto)
+        {
+            try
+            {
+                var cartFromDb = await _db.CartHeaders.FirstAsync(x => x.UserId == cartDto.CartHeader.UserId);
+                cartFromDb.CouponCode = cartDto.CartHeader.CouponCode;
+                _db.CartHeaders.Update(cartFromDb);
+                await _db.SaveChangesAsync();
+                _response.Result = true;
+            }
+            catch (Exception ex)
+            {
+                _response.Message = ex.ToString();
+                _response.IsSuccess = false;
+            }
+
+            return _response;
+        }
+        [HttpPost("RemoveCoupon")]
+        public async Task<Object> RemoveCoupon(CartDto cartDto)
+        {
+            try
+            {
+                var cartFromDb = await _db.CartHeaders.FirstAsync(x => x.UserId == cartDto.CartHeader.UserId);
+                cartFromDb.CouponCode = "";
+                _db.CartHeaders.Update(cartFromDb);
+                await _db.SaveChangesAsync();
+                _response.Result = true;
+            }
+            catch (Exception ex)
+            {
+                _response.Message = ex.ToString();
+                _response.IsSuccess = false;
+            }
+
+            return _response;
+        }
         
         [HttpPost("CartUpsert")]
         public async Task<ResponseDto> CartUpsert(CartDto cartDto)
