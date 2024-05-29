@@ -15,13 +15,15 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
         private ApplicationDbContext _db;
         private IMapper _mapper;
         private readonly IProductService _productService;
+        private readonly ICouponService _couponService;
         private ResponseDto _response;
 
-        public CartAPIController(ApplicationDbContext db, IMapper mapper, IProductService productService)
+        public CartAPIController(ApplicationDbContext db, IMapper mapper, IProductService productService, ICouponService couponService)
         {
             _db = db;
             _mapper = mapper;
             _productService = productService;
+            _couponService = couponService;
             _response = new ResponseDto();
         }
 
@@ -43,6 +45,17 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
                 {
                     item.Product = productDtos.FirstOrDefault(x => x.ProductId == item.ProductId);
                     cart.CartHeader.CartTotal += (item.Count * item.Product.Price);
+                }
+                
+                //apply coupon if any
+                if (!string.IsNullOrEmpty(cart.CartHeader.CouponCode))
+                {
+                    CouponDto coupon = await _couponService.GetCoupon(cart.CartHeader.CouponCode);
+                    if (coupon != null && cart.CartHeader.CartTotal > coupon.MinAmount)
+                    {
+                        cart.CartHeader.CartTotal -= coupon.DiscountAmount;
+                        cart.CartHeader.Discount = coupon.DiscountAmount;   
+                    }
                 }
 
                 _response.Result = cart;
