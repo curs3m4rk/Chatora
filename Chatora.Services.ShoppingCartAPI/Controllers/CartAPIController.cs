@@ -1,4 +1,5 @@
 using AutoMapper;
+using Chatora.MessageBus;
 using Chatora.Services.ShoppingCartAPI.Data;
 using Chatora.Services.ShoppingCartAPI.Models;
 using Chatora.Services.ShoppingCartAPI.Models.Dto;
@@ -16,14 +17,19 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
         private IMapper _mapper;
         private readonly IProductService _productService;
         private readonly ICouponService _couponService;
+        private readonly IMessageBus _messageBus;
+        private readonly IConfiguration _configuration;
         private ResponseDto _response;
 
-        public CartAPIController(ApplicationDbContext db, IMapper mapper, IProductService productService, ICouponService couponService)
+        public CartAPIController(ApplicationDbContext db, IMapper mapper, IProductService productService, ICouponService couponService,
+            IMessageBus messageBus, IConfiguration configuration)
         {
             _db = db;
             _mapper = mapper;
             _productService = productService;
             _couponService = couponService;
+            _messageBus = messageBus;
+            _configuration = configuration;
             _response = new ResponseDto();
         }
 
@@ -89,6 +95,25 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
 
             return _response;
         }
+        
+        [HttpPost("EmailCartRequest")]
+        public async Task<Object> EmailCartRequest(CartDto cartDto)
+        {
+            try
+            {
+                await _messageBus.PublishMessage(cartDto,
+                    _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCart"));
+                _response.Result = true;
+            }
+            catch (Exception ex)
+            {
+                _response.Message = ex.ToString();
+                _response.IsSuccess = false;
+            }
+
+            return _response;
+        }
+        
         [HttpPost("RemoveCoupon")]
         public async Task<Object> RemoveCoupon(CartDto cartDto)
         {

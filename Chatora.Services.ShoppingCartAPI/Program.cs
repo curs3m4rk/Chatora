@@ -1,4 +1,5 @@
 using AutoMapper;
+using Chatora.MessageBus;
 using Chatora.Services.ShoppingCartAPI;
 using Chatora.Services.ShoppingCartAPI.Data;
 using Chatora.Services.ShoppingCartAPI.Extensions;
@@ -21,6 +22,7 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<IMessageBus, MessageBus>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<BackendApiAuthenticationHttpClientHandler>();
 
