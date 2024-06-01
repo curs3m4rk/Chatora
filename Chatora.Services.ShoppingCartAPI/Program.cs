@@ -4,6 +4,7 @@ using Chatora.Services.ShoppingCartAPI.Data;
 using Chatora.Services.ShoppingCartAPI.Extensions;
 using Chatora.Services.ShoppingCartAPI.Service;
 using Chatora.Services.ShoppingCartAPI.Service.IService;
+using Chatora.Services.ShoppingCartAPI.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -20,12 +21,16 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<BackendApiAuthenticationHttpClientHandler>();
+
 // Add services to the container.
 builder.Services.AddHttpClient("Product", x => x.BaseAddress =
-    new Uri(builder.Configuration["ServiceUrls:ProductAPI"]));
+    new Uri(builder.Configuration["ServiceUrls:ProductAPI"])).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
 builder.Services.AddHttpClient("Coupon", x => x.BaseAddress =
-    new Uri(builder.Configuration["ServiceUrls:CouponAPI"]));
+    new Uri(builder.Configuration["ServiceUrls:CouponAPI"])).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
