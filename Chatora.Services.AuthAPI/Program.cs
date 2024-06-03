@@ -1,3 +1,4 @@
+using Chatora.MessageBus;
 using Chatora.Services.AuthAPI.Data;
 using Chatora.Services.AuthAPI.Models;
 using Chatora.Services.AuthAPI.Services;
@@ -19,6 +20,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFramework
 builder.Services.AddControllers();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+builder.Services.AddScoped<IMessageBus, MessageBus>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
