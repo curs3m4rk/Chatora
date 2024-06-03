@@ -24,4 +24,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Chatora.MessageBus\Chatora.MessageBus.csproj" />
+  </ItemGroup>
+
 </Project>
