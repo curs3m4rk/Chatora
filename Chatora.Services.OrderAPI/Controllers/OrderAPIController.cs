@@ -74,7 +74,15 @@ namespace Chatora.Services.OrderAPI.Controllers
                     Mode = "payment",
                 };
 
-                foreach(var item in stripeRequestDto.orderHeader.OrderDetails)
+                var DiscountsObj = new List<SessionDiscountOptions>()
+                {
+                    new SessionDiscountOptions
+                    {
+                        Coupon = stripeRequestDto.orderHeader.CouponCode
+                    }
+                };
+
+                foreach (var item in stripeRequestDto.orderHeader.OrderDetails)
                 {
                     var sessionLineItem = new SessionLineItemOptions
                     {
@@ -93,6 +101,10 @@ namespace Chatora.Services.OrderAPI.Controllers
                     options.LineItems.Add(sessionLineItem);
                 }
 
+                if(stripeRequestDto.orderHeader.Discount > 0)
+                {
+                    options.Discounts = DiscountsObj;
+                }
                 var service = new SessionService();
                 Session session = service.Create(options);
                 stripeRequestDto.StripeSessionUrl = session.Url;
