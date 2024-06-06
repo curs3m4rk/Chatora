@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Chatora.MessageBus;
 using Chatora.Services.OrderApi.Models.Dto;
 using Chatora.Services.OrderAPI.Data;
 using Chatora.Services.OrderAPI.Models;
@@ -21,12 +22,16 @@ namespace Chatora.Services.OrderAPI.Controllers
         private IMapper _mapper;
         private readonly ApplicationDbContext _db;
         private IProductService _productService;
+        private readonly IConfiguration _configuration;
+        private readonly IMessageBus _messageBus;
 
-        public OrderAPIController(IMapper mapper, ApplicationDbContext db, IProductService productService)
+        public OrderAPIController(IMapper mapper, ApplicationDbContext db, IProductService productService, IConfiguration configuration, IMessageBus messageBus)
         {
             _mapper = mapper;
             _db = db;
             _productService = productService;
+            _configuration = configuration;
+            _messageBus = messageBus;
             _response = new ResponseDto();
         }
 
@@ -144,6 +149,15 @@ namespace Chatora.Services.OrderAPI.Controllers
                     orderHeader.PaymentIntentId = paymentIntent.Id;
                     orderHeader.Status = SD.Status_Approved;
                     _db.SaveChanges();
+
+                    RewardsDto rewardsDto = new()
+                    {
+                        OrderId = orderHeader.OrderHeaderId,
+                        RewardsActivity = Convert.ToInt32(orderHeader.OrderTotal),
+                        UserId = orderHeader.UserId
+                    };
+                    string topicName = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic");
+                    await _messageBus.PublishMessage(rewardsDto, topicName);
 
                     _response.Result = _mapper.Map<OrderHeaderDto>(orderHeader);
                 }

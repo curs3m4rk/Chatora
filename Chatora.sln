@@ -19,13 +19,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.AuthAPI", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.ProductAPI", "Chatora.Services.ProductAPI\Chatora.Services.ProductAPI.csproj", "{9B717608-6359-46FC-9D33-127F81124567}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.Services.ShoppingCartAPI", "Chatora.Services.ShoppingCartAPI\Chatora.Services.ShoppingCartAPI.csproj", "{A45E7744-769E-4548-ACBC-C07FD67F05C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.ShoppingCartAPI", "Chatora.Services.ShoppingCartAPI\Chatora.Services.ShoppingCartAPI.csproj", "{A45E7744-769E-4548-ACBC-C07FD67F05C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.MessageBus", "Chatora.MessageBus\Chatora.MessageBus.csproj", "{FA9950BD-9CA7-48F4-9F28-B6A5FF840908}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.MessageBus", "Chatora.MessageBus\Chatora.MessageBus.csproj", "{FA9950BD-9CA7-48F4-9F28-B6A5FF840908}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.Services.EmailAPI", "Chatora.Services.EmailAPI\Chatora.Services.EmailAPI.csproj", "{642A4B1F-0FBB-4D56-8E34-0D52EF548B8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.EmailAPI", "Chatora.Services.EmailAPI\Chatora.Services.EmailAPI.csproj", "{642A4B1F-0FBB-4D56-8E34-0D52EF548B8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.Services.OrderAPI", "Chatora.Services.OrderAPI\Chatora.Services.OrderAPI.csproj", "{D0393173-3B05-4E61-8B85-945E7FF7E752}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.OrderAPI", "Chatora.Services.OrderAPI\Chatora.Services.OrderAPI.csproj", "{D0393173-3B05-4E61-8B85-945E7FF7E752}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.Services.RewardsAPI", "Chatora.Services.RewardsAPI\Chatora.Services.RewardsAPI.csproj", "{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{D0393173-3B05-4E61-8B85-945E7FF7E752}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0393173-3B05-4E61-8B85-945E7FF7E752}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0393173-3B05-4E61-8B85-945E7FF7E752}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{FA9950BD-9CA7-48F4-9F28-B6A5FF840908} = {66A925FB-7CD8-4CB7-B5B0-1126AAAA74A5}
 		{642A4B1F-0FBB-4D56-8E34-0D52EF548B8D} = {39913C7E-9A78-466F-80F4-7FDDF331B6FC}
 		{D0393173-3B05-4E61-8B85-945E7FF7E752} = {39913C7E-9A78-466F-80F4-7FDDF331B6FC}
+		{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762} = {39913C7E-9A78-466F-80F4-7FDDF331B6FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73D8C585-96C7-432A-B908-FA7A3F7F81EF}

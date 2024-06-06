@@ -1,4 +1,5 @@
-﻿using Chatora.Services.EmailAPI.Models.Dto;
+﻿using Chatora.Services.EmailAPI.Message;
+using Chatora.Services.EmailAPI.Models.Dto;
 
 namespace Chatora.Services.EmailAPI.Services
 {
@@ -6,5 +7,6 @@ namespace Chatora.Services.EmailAPI.Services
     {
         Task EmailCartAndLog(CartDto cartDto);
         Task RegisterUserEmailAndLog(string email);
+        Task LogOrderPlaced(RewardsMessage rewardsDto);
     }
 }
