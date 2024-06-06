@@ -1,4 +1,5 @@
 ﻿using Chatora.Services.EmailAPI.Data;
+using Chatora.Services.EmailAPI.Message;
 using Chatora.Services.EmailAPI.Models;
 using Chatora.Services.EmailAPI.Models.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -60,6 +61,12 @@ namespace Chatora.Services.EmailAPI.Services
             {
                 return false;
             }
+        }
+
+        public async Task LogOrderPlaced(RewardsMessage rewardsDto)
+        {
+            string message = "New Order Placed. <br/> Order ID : " + rewardsDto.OrderId;
+            await LogAndEmail(message, "pujyapreyans@hotmail.com");
         }
     }
 }
