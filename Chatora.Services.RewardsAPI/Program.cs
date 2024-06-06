@@ -1,4 +1,5 @@
 using Chatora.Services.RewardsAPI.Data;
+using Chatora.Services.RewardsAPI.Extension;
 using Chatora.Services.RewardsAPI.Messaging;
 using Chatora.Services.RewardsAPI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseAzureServiceBusConsumer();
 app.MapControllers();
 ApplyMigration();
 app.Run();
