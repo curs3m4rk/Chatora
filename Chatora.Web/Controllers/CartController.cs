@@ -50,7 +50,7 @@ public class CartController : Controller
             {
                 ApprovedUrl = domain + "cart/Confirmation?orderId=" + orderHeaderDto.OrderHeaderId,
                 CancelUrl = domain + "cart/checkout",
-                orderHeader = orderHeaderDto
+                OrderHeader = orderHeaderDto
             };
 
             var stripeResponse = await _orderService.CreateStripeSession(stripeRequestDto);

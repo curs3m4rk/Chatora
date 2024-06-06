@@ -78,11 +78,11 @@ namespace Chatora.Services.OrderAPI.Controllers
                 {
                     new SessionDiscountOptions
                     {
-                        Coupon = stripeRequestDto.orderHeader.CouponCode
+                        Coupon = stripeRequestDto.OrderHeader.CouponCode
                     }
                 };
 
-                foreach (var item in stripeRequestDto.orderHeader.OrderDetails)
+                foreach (var item in stripeRequestDto.OrderHeader.OrderDetails)
                 {
                     var sessionLineItem = new SessionLineItemOptions
                     {
@@ -101,14 +101,14 @@ namespace Chatora.Services.OrderAPI.Controllers
                     options.LineItems.Add(sessionLineItem);
                 }
 
-                if(stripeRequestDto.orderHeader.Discount > 0)
+                if(stripeRequestDto.OrderHeader.Discount > 0)
                 {
                     options.Discounts = DiscountsObj;
                 }
                 var service = new SessionService();
                 Session session = service.Create(options);
                 stripeRequestDto.StripeSessionUrl = session.Url;
-                OrderHeader orderHeader = _db.OrderHeaders.First(x => x.OrderHeaderId == stripeRequestDto.orderHeader.OrderHeaderId);
+                OrderHeader orderHeader = _db.OrderHeaders.First(x => x.OrderHeaderId == stripeRequestDto.OrderHeader.OrderHeaderId);
                 orderHeader.StripeSessionId = session.Id;
                 _db.SaveChanges();
                 _response.Result = stripeRequestDto;

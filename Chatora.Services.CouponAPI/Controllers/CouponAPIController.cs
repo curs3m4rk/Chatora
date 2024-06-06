@@ -89,7 +89,7 @@ namespace Chatora.Services.CouponAPI.Controllers
                     AmountOff = (long)(couponDto.DiscountAmount * 100),
                     Name = couponDto.CouponCode,
                     Currency = "inr",
-                    Id = couponDto.CouponId.ToString()
+                    Id = couponDto.CouponCode
                 };
                 var service = new Stripe.CouponService();
                 service.Create(options);
