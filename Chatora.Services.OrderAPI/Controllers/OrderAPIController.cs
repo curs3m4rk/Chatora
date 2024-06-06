@@ -124,5 +124,38 @@ namespace Chatora.Services.OrderAPI.Controllers
             return _response;
         }
 
+        [Authorize]
+        [HttpPost("ValidateStripeSession")]
+        public async Task<ResponseDto> ValidateStripeSession([FromBody] int orderHeaderId)
+        {
+            try
+            {
+                OrderHeader orderHeader = _db.OrderHeaders.First(x=> x.OrderHeaderId == orderHeaderId);
+
+                var service = new SessionService();
+                Session session = service.Get(orderHeader.StripeSessionId);
+
+                var paymentIntentService = new PaymentIntentService();
+                PaymentIntent paymentIntent = paymentIntentService.Get(session.PaymentIntentId);
+
+                if(paymentIntent.Status == "succeeded")
+                {
+                    // that means payment was successful
+                    orderHeader.PaymentIntentId = paymentIntent.Id;
+                    orderHeader.Status = SD.Status_Approved;
+                    _db.SaveChanges();
+
+                    _response.Result = _mapper.Map<OrderHeaderDto>(orderHeader);
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+
+            return _response;
+        }
+
     }
 }
