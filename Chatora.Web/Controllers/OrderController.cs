@@ -60,5 +60,44 @@ namespace Chatora.Web.Controllers
 
             return Json(new {data = list});
         }
+
+        [HttpPost("ReadyForPickup")]
+        public async Task<IActionResult> ReadyForPickup(int orderId)
+        { 
+            var response = await _orderService.UpdateOrderStatus(orderId,SD.Status_ReadyForPickup);
+            if(response != null && response.IsSuccess)
+            {
+                TempData["success"] = "Status updated successfully";
+                return RedirectToAction(nameof(OrderDetail), new { orderId = orderId });
+            }
+
+            return View();
+        }
+
+        [HttpPost("CompleteOrder")]
+        public async Task<IActionResult> CompleteOrder(int orderId)
+        { 
+            var response = await _orderService.UpdateOrderStatus(orderId,SD.Status_Completed);
+            if(response != null && response.IsSuccess)
+            {
+                TempData["success"] = "Status updated successfully";
+                return RedirectToAction(nameof(OrderDetail), new { orderId = orderId });
+            }
+
+            return View();
+        }
+
+        [HttpPost("CancelOrder")]
+        public async Task<IActionResult> CancelOrder(int orderId)
+        { 
+            var response = await _orderService.UpdateOrderStatus(orderId,SD.Status_Cancelled);
+            if(response != null && response.IsSuccess)
+            {
+                TempData["success"] = "Status updated successfully";
+                return RedirectToAction(nameof(OrderDetail), new { orderId = orderId });
+            }
+
+            return View();
+        }
     }
 }
