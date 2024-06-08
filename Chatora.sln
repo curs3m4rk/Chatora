@@ -27,9 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.EmailAPI",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.OrderAPI", "Chatora.Services.OrderAPI\Chatora.Services.OrderAPI.csproj", "{D0393173-3B05-4E61-8B85-945E7FF7E752}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.Services.RewardsAPI", "Chatora.Services.RewardsAPI\Chatora.Services.RewardsAPI.csproj", "{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.RewardsAPI", "Chatora.Services.RewardsAPI\Chatora.Services.RewardsAPI.csproj", "{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.GatewaySolution", "Chatora.GatewaySolution\Chatora.GatewaySolution.csproj", "{9D52FE46-58F2-400F-8501-FFAF3575C1E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.GatewaySolution", "Chatora.GatewaySolution\Chatora.GatewaySolution.csproj", "{9D52FE46-58F2-400F-8501-FFAF3575C1E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
