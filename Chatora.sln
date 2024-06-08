@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatora.Services.OrderAPI",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.Services.RewardsAPI", "Chatora.Services.RewardsAPI\Chatora.Services.RewardsAPI.csproj", "{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatora.GatewaySolution", "Chatora.GatewaySolution\Chatora.GatewaySolution.csproj", "{9D52FE46-58F2-400F-8501-FFAF3575C1E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D52FE46-58F2-400F-8501-FFAF3575C1E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D52FE46-58F2-400F-8501-FFAF3575C1E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D52FE46-58F2-400F-8501-FFAF3575C1E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D52FE46-58F2-400F-8501-FFAF3575C1E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{642A4B1F-0FBB-4D56-8E34-0D52EF548B8D} = {39913C7E-9A78-466F-80F4-7FDDF331B6FC}
 		{D0393173-3B05-4E61-8B85-945E7FF7E752} = {39913C7E-9A78-466F-80F4-7FDDF331B6FC}
 		{5FA307E2-AD61-4A5D-8F87-CA20A3AFA762} = {39913C7E-9A78-466F-80F4-7FDDF331B6FC}
+		{9D52FE46-58F2-400F-8501-FFAF3575C1E8} = {2BA75E43-1E1E-4CEC-AF63-D4418A2BD088}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73D8C585-96C7-432A-B908-FA7A3F7F81EF}

@@ -6,7 +6,6 @@ namespace Chatora.Web.Service.IService
     {
         Task<ResponseDto?> GetAllProductsAsync();
         Task<ResponseDto?> GetProductByIdAsync(int id);
-        Task<ResponseDto?> GetProductAsync(string productName);
         Task<ResponseDto?> CreateProductAsync(ProductDto product);
         Task<ResponseDto?> UpdateProductAsync(ProductDto product);
         Task<ResponseDto?> DeleteProductAsync(int id);
