@@ -4,6 +4,7 @@ using Chatora.Web.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Chatora.Web.Controllers
 {
@@ -15,7 +16,8 @@ namespace Chatora.Web.Controllers
         {
             _orderService = orderService;
         }
-
+        
+        [Authorize]
         public IActionResult OrderIndex()
         {
             return View();
