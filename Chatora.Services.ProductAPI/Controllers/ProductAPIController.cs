@@ -55,23 +55,6 @@ namespace Chatora.Services.ProductAPI.Controllers
             return _response;
         }
 
-        [HttpGet]
-        [Route("getByName/{name}")]
-        public ResponseDto Get(string name)
-        {
-            try
-            {
-                Product product = _db.Products.First(x => x.Name.ToLower() == name.ToLower());
-                _response.Result = _mapper.Map<ProductDto>(product);
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.Message = ex.Message;
-            }
-            return _response;
-        }
-
         [HttpPost]
         [Authorize(Roles ="ADMIN")]
         public ResponseDto Create(ProductDto productDto)
