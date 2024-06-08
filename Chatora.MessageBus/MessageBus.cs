@@ -7,7 +7,7 @@ namespace Chatora.MessageBus;
 public class MessageBus : IMessageBus
 {
     private string connectionString =
-        "Endpoint=sb://pujyapreyans.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=U8RchpUeNsraJV4UCs9rtCKr5ouCpr78k+ASbAlGnrU=";
+        "Endpoint=sb://pujyapreyans.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=fC5Ljk7gZn2wHkGPis6JZojYs3NUXzre1+ASbKwDiuc=";
     public async Task PublishMessage(object message, string topicQueueName)
     {
         await using var client = new ServiceBusClient(connectionString);
