@@ -222,7 +222,7 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/api/order/GetOrders/{userId}",
+      "DownstreamPathTemplate": "/api/order/GetOrders?userId={userId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -237,7 +237,7 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/api/order/GetOrder/{orderId}",
+      "DownstreamPathTemplate": "/api/order/GetOrder?userId=''",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -245,14 +245,14 @@
           "Port": 7004
         }
       ],
-      "UpstreamPathTemplate": "/api/order/GetOrder/{orderId}",
+      "UpstreamPathTemplate": "/api/order/GetOrder?orderId={orderId}",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer"
       }
     },
     {
-      "DownstreamPathTemplate": "/api/order/UpdateOrderStatus/{orderId}",
+      "DownstreamPathTemplate": "/api/order/UpdateOrderStatus?orderId={orderId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
