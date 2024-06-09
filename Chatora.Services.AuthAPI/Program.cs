@@ -1,6 +1,7 @@
 using Chatora.MessageBus;
 using Chatora.Services.AuthAPI.Data;
 using Chatora.Services.AuthAPI.Models;
+using Chatora.Services.AuthAPI.RabbitMQSender;
 using Chatora.Services.AuthAPI.Services;
 using Chatora.Services.AuthAPI.Services.IService;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +21,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFramework
 builder.Services.AddControllers();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-builder.Services.AddScoped<IMessageBus, MessageBus>();
+builder.Services.AddScoped<IRabbitMQAuthMessageSender, RabbitMQAuthMesageSender>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

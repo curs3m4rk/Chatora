@@ -1,5 +1,6 @@
 ﻿using Chatora.MessageBus;
 using Chatora.Services.AuthAPI.Models.Dto;
+using Chatora.Services.AuthAPI.RabbitMQSender;
 using Chatora.Services.AuthAPI.Services.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +12,10 @@ namespace Chatora.Services.AuthAPI.Controllers
     {
         private ResponseDto _response;
         private IAuthService _authService;
-        private readonly IMessageBus _messageBus;
+        private readonly IRabbitMQAuthMessageSender _messageBus;
         private readonly IConfiguration _configuration;
 
-        public AuthAPIController(IAuthService authService, IMessageBus messageBus, IConfiguration configuration)
+        public AuthAPIController(IAuthService authService, IRabbitMQAuthMessageSender messageBus, IConfiguration configuration)
         {
             _response = new ResponseDto();
             _authService = authService;
@@ -33,7 +34,7 @@ namespace Chatora.Services.AuthAPI.Controllers
                 _response.Message = errorMessage;
                 return BadRequest(_response);
             }
-            await _messageBus.PublishMessage(model.Email, _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue"));
+            _messageBus.SendMessage(model.Email, _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue"));
             return Ok(_response);
         }
 
