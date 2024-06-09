@@ -1,6 +1,9 @@
 ﻿
 using Chatora.Services.EmailAPI.Services;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
 using System.Threading.Channels;
 
 namespace Chatora.Services.EmailAPI.Messaging
@@ -29,7 +32,26 @@ namespace Chatora.Services.EmailAPI.Messaging
         }
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            throw new NotImplementedException();
+            stoppingToken.ThrowIfCancellationRequested();
+
+            var consumer = new EventingBasicConsumer(_channel);
+            consumer.Received += (ch, ea) =>
+            {
+                var content = Encoding.UTF8.GetString(ea.Body.ToArray());
+                string email = JsonConvert.DeserializeObject<string>(content);
+                HandleMessage(email).GetAwaiter().GetResult();
+
+                _channel.BasicAck(ea.DeliveryTag, false);
+            };
+
+            _channel.BasicConsume(_configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue"), false, consumer);
+
+            return Task.CompletedTask;
+        }
+
+        private async Task HandleMessage(string email)
+        {
+
         }
     }
 }
