@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Threading.Channels;
 
 namespace Chatora.Services.EmailAPI.Messaging
 {
@@ -15,11 +16,14 @@ namespace Chatora.Services.EmailAPI.Messaging
         private readonly EmailService _emailService;
         private IConnection _connection;
         private IModel _channel;
-        string queueName = "";
+        public string ExchangeName = "";
+        public string OrderCreated_EmailUpdateQueue = "";
         public RabbitMQOrderConsumer(IConfiguration configuration, EmailService emailService)
         {
             _configuration = configuration;
             _emailService = emailService;
+            ExchangeName = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic");
+            OrderCreated_EmailUpdateQueue = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreated_EmailUpdateQueue");
             var factory = new ConnectionFactory
             {
                 HostName = "localhost",
@@ -28,9 +32,10 @@ namespace Chatora.Services.EmailAPI.Messaging
             };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(_configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic"), ExchangeType.Fanout);
-            queueName = _channel.QueueDeclare().QueueName;
-            _channel.QueueBind(queueName, _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic"), "");
+            _channel.ExchangeDeclare(ExchangeName, ExchangeType.Direct, durable: false);
+
+            _channel.QueueDeclare(OrderCreated_EmailUpdateQueue, false, false, false, null);
+            _channel.QueueBind(OrderCreated_EmailUpdateQueue, ExchangeName, "EmailUpdate");
         }
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -46,7 +51,7 @@ namespace Chatora.Services.EmailAPI.Messaging
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 
-            _channel.BasicConsume(queueName, false, consumer);
+            _channel.BasicConsume(OrderCreated_EmailUpdateQueue, false, consumer);
 
             return Task.CompletedTask;
         }

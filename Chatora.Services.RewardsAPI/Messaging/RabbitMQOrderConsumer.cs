@@ -15,10 +15,14 @@ namespace Chatora.Services.EmailAPI.Messaging
         private IConnection _connection;
         private IModel _channel;
         string queueName = "";
+        public string OrderCreated_RewardsUpdateQueue = "";
+        public string ExchangeName = "";
         public RabbitMQOrderConsumer(IConfiguration configuration, RewardService rewardService)
         {
             _configuration = configuration;
             _rewardService = rewardService;
+            ExchangeName = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic");
+            OrderCreated_RewardsUpdateQueue = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreated_RewardsUpdateQueue");
             var factory = new ConnectionFactory
             {
                 HostName = "localhost",
@@ -27,9 +31,10 @@ namespace Chatora.Services.EmailAPI.Messaging
             };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(_configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic"), ExchangeType.Fanout);
-            queueName = _channel.QueueDeclare().QueueName;
-            _channel.QueueBind(queueName, _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic"), "");
+            _channel.ExchangeDeclare(ExchangeName, ExchangeType.Direct, durable: false);
+
+            _channel.QueueDeclare(OrderCreated_RewardsUpdateQueue, false, false, false, null);
+            _channel.QueueBind(OrderCreated_RewardsUpdateQueue, ExchangeName, "RewardsUpdate");
         }
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -45,7 +50,7 @@ namespace Chatora.Services.EmailAPI.Messaging
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 
-            _channel.BasicConsume(queueName, false, consumer);
+            _channel.BasicConsume(OrderCreated_RewardsUpdateQueue, false, consumer);
 
             return Task.CompletedTask;
         }

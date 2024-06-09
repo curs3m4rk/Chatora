@@ -25,7 +25,7 @@ namespace Chatora.Services.ShoppingCartAPI.RabbitMQSender
             if (ConnectionExists())
             {
                 using var channel = _connection.CreateModel();
-                channel.ExchangeDeclare(exchangeName, ExchangeType.Fanout, durable:false);
+                channel.ExchangeDeclare(exchangeName, ExchangeType.Direct, durable:false);
                 channel.QueueDeclare(_configuration.GetValue<string>("TopicAndQueueNames:OrderCreated_RewardsUpdateQueue"), false, false, false, null);
                 channel.QueueDeclare(_configuration.GetValue<string>("TopicAndQueueNames:OrderCreated_EmailUpdateQueue"), false, false, false, null);
 
