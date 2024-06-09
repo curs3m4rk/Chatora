@@ -3,6 +3,7 @@ using Chatora.MessageBus;
 using Chatora.Services.ShoppingCartAPI.Data;
 using Chatora.Services.ShoppingCartAPI.Models;
 using Chatora.Services.ShoppingCartAPI.Models.Dto;
+using Chatora.Services.ShoppingCartAPI.RabbitMQSender;
 using Chatora.Services.ShoppingCartAPI.Service.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,12 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
         private IMapper _mapper;
         private readonly IProductService _productService;
         private readonly ICouponService _couponService;
-        private readonly IMessageBus _messageBus;
+        private readonly IRabbitMQCartMessageSender _messageBus;
         private readonly IConfiguration _configuration;
         private ResponseDto _response;
 
         public CartAPIController(ApplicationDbContext db, IMapper mapper, IProductService productService, ICouponService couponService,
-            IMessageBus messageBus, IConfiguration configuration)
+            IRabbitMQCartMessageSender messageBus, IConfiguration configuration)
         {
             _db = db;
             _mapper = mapper;
@@ -101,7 +102,7 @@ namespace Chatora.Services.ShoppingCartAPI.Controllers
         {
             try
             {
-                await _messageBus.PublishMessage(cartDto,
+                _messageBus.SendMessage(cartDto,
                     _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCartQueue"));
                 _response.Result = true;
             }

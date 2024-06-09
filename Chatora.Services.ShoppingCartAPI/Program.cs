@@ -3,6 +3,7 @@ using Chatora.MessageBus;
 using Chatora.Services.ShoppingCartAPI;
 using Chatora.Services.ShoppingCartAPI.Data;
 using Chatora.Services.ShoppingCartAPI.Extensions;
+using Chatora.Services.ShoppingCartAPI.RabbitMQSender;
 using Chatora.Services.ShoppingCartAPI.Service;
 using Chatora.Services.ShoppingCartAPI.Service.IService;
 using Chatora.Services.ShoppingCartAPI.Utility;
@@ -22,7 +23,7 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
-builder.Services.AddScoped<IMessageBus, MessageBus>();
+builder.Services.AddScoped<IRabbitMQCartMessageSender, RabbitMQCartMesageSender>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<BackendApiAuthenticationHttpClientHandler>();
 

@@ -1,3 +1,4 @@
+using Chatora.Services.EmailAPI.Messaging;
 using Chatora.Services.RewardsAPI.Data;
 using Chatora.Services.RewardsAPI.Extension;
 using Chatora.Services.RewardsAPI.Messaging;
@@ -16,6 +17,7 @@ var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 builder.Services.AddSingleton(new RewardService(optionBuilder.Options));
 
+builder.Services.AddHostedService<RabbitMQOrderConsumer>();
 builder.Services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
 
 builder.Services.AddControllers();

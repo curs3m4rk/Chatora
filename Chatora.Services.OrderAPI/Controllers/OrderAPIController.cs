@@ -6,6 +6,7 @@ using Chatora.Services.OrderAPI.Models;
 using Chatora.Services.OrderAPI.Models.Dto;
 using Chatora.Services.OrderAPI.Service.IService;
 using Chatora.Services.OrderAPI.Utility;
+using Chatora.Services.ShoppingCartAPI.RabbitMQSender;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,9 @@ namespace Chatora.Services.OrderAPI.Controllers
         private readonly ApplicationDbContext _db;
         private IProductService _productService;
         private readonly IConfiguration _configuration;
-        private readonly IMessageBus _messageBus;
+        private readonly IRabbitMQOrderMessageSender _messageBus;
 
-        public OrderAPIController(IMapper mapper, ApplicationDbContext db, IProductService productService, IConfiguration configuration, IMessageBus messageBus)
+        public OrderAPIController(IMapper mapper, ApplicationDbContext db, IProductService productService, IConfiguration configuration, IRabbitMQOrderMessageSender messageBus)
         {
             _mapper = mapper;
             _db = db;
@@ -204,7 +205,7 @@ namespace Chatora.Services.OrderAPI.Controllers
                         UserId = orderHeader.UserId
                     };
                     string topicName = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic");
-                    await _messageBus.PublishMessage(rewardsDto, topicName);
+                    _messageBus.SendMessage(rewardsDto, topicName);
 
                     _response.Result = _mapper.Map<OrderHeaderDto>(orderHeader);
                 }
