@@ -104,7 +104,10 @@
         }
       ],
       "UpstreamPathTemplate": "/api/cart/GetCart/{userId}",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/cart/CartUpsert",
