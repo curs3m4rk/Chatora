@@ -2,16 +2,16 @@
 using RabbitMQ.Client;
 using System.Text;
 
-namespace Chatora.Services.AuthAPI.RabbitMQSender
+namespace Chatora.Services.ShoppingCartAPI.RabbitMQSender
 {
-    public class RabbitMQAuthMesageSender : IRabbitMQAuthMessageSender
+    public class RabbitMQCartMesageSender : IRabbitMQCartMessageSender
     {
         private readonly string _hostName;
         private readonly string _userName;
         private readonly string _password;
         private IConnection _connection;
 
-        public RabbitMQAuthMesageSender()
+        public RabbitMQCartMesageSender()
         {
             _hostName = "localhost";
             _userName = "guest";
